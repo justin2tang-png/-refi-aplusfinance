@@ -52,7 +52,7 @@
         nav_faq: "\u5e38\u89c1\u95ee\u9898",
         nav_contact: "\u8054\u7cfb\u6211\u4eec",
         hero_title: "\u60a8\u7684\u623f\u8d37\u6210\u672c\u592a\u9ad8\uff1f\u8ba9\u6211\u4eec\u6765\u89e3\u51b3\u3002",
-        hero_cta: "\u67e5\u770b\u60a8\u7684\u8f6c\u8d37\u8282\u7701",
+        hero_cta: "\u7acb\u5373\u8ba1\u7b97\u80fd\u7701\u591a\u5c11",
         hero_cta2: "\u514d\u8d39\u54a8\u8be2",
         pain_title: "\u8fd9\u4e9b\u60c5\u51b5\u60a8\u719f\u6089\u5417\uff1f",
         sol_title: "\u8f6c\u8d37\u53ef\u4ee5\u5e26\u6765\u8fd9\u4e9b\u597d\u5904",
@@ -61,8 +61,8 @@
         calc_title: "\u60a8\u53ef\u4ee5\u8282\u7701\u591a\u5c11\uff1f",
         calc_btn: "\u8ba1\u7b97\u60a8\u7684\u8282\u7701",
         faq_title: "\u5e38\u89c1\u95ee\u9898",
-        contact_title: "\u51c6\u5907\u597d\u4e86\uff1f\u8ba9\u6211\u4eec\u804a\u804a\u3002",
-        contact_btn: "\u83b7\u53d6\u514d\u8d39\u8bc4\u4f30",
+        contact_title: "\u7701\u94b1\u7684\u673a\u4f1a\uff0c\u514d\u8d39\u8bc4\u4f30",
+        contact_btn: "\u7acb\u5373\u8ba1\u7b97",
         footer_text: "\u4fdd\u7559\u6240\u6709\u6743\u5229\u3002",
         footer_disclaimer: "\u514d\u8d23\u58f0\u660e\uff1a\u672c\u7f51\u7ad9\u4fe1\u606f\u4e3a\u4e00\u822c\u6027\u4fe1\u606f\uff0c\u4e0d\u6784\u6210\u8d22\u52a1\u5efa\u8bae\u3002"
       ,
@@ -89,7 +89,7 @@
       chat_morning: "上午",
       chat_afternoon: "下午",
       chat_evening: "晚上",
-      chat_bye: "没关系！想改变主意时随时回来
+      chat_bye: "没关系！想改变主意时随时回来",
       step3_title: "节省到账"
 }
     },
