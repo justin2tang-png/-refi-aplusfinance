@@ -90,9 +90,43 @@
       chat_afternoon: "下午",
       chat_evening: "晚上",
       chat_bye: "没关系！想改变主意时随时回来",
-      step3_title: "节省到账"
+      step3_title: "节省到账",
+        hero_desc: "房贷利率已经变了。如果您在过去12个月内没有检查过您的房贷，您可能多付了数千元。获取免费、无义务的转贷检查。",
+        pain_1_desc: "您的浮动利率今年已经上涨两次，但您的银行并没有为您提供更好的方案。",
+        pain_2_desc: "您听说朋友们锁定了更低利率并获得现金返赠，而您却没有。",
+        pain_3_desc: "您每月能省下的-500可以用于更好的生活享受或储蓄。",
+        sol_1_desc: "转到我们合作的10+家贷款机构中的竞争性利率。",
+        sol_2_desc: "许多银行提供,000-4,000现金返赠。",
+        sol_3_desc: "根据您的实际情况重新安排还款结构，如抵销账户、循环信贷或固定利率。",
+        about_p1: "Becky在ANZ银行有14年经验，现独立运营A Plus Finance，将企业知识和个人专注带给每位客户。",
+        about_p2: "她专注住房贷款转贷，帮助新西兰各地的房主获得更好利率、解锁款项，并优化贷款结构。",
+        about_p3: "Becky的方式简单直接：没有专业术语，没有压力，只有清晰的建议。",
+        about_stat1: "新西兰银行业经验",
+        about_stat2: "ANZ工作年限",
+        about_stat3: "贷款咨询总额",
+        step1_desc: "进入我们的快速聊天——回答6个简单问题，大约只需2分钟。",
+        step2_desc: "我们评估您的情况，对比10+家贷款机构的方案，找到最优选择。",
+        step3_desc: "选定最佳方案后，我们处理全部文件，您立即开始节省。",
+        calc_balance_label: "当前贷款余额",
+        calc_rate_label: "当前利率",
+        testimonials_title: "客户评价",
+        testimonials_placeholder: "实际客户评价待补充",
+        faq_1_ans: "转贷涉及一些费用：提前还款费、房屋评估费（约-800）和律师费（约-1,200）。好消息是，许多银行提供,000-4,000现金返赠，通常能覆盖这些费用。",
+        faq_2_ans: "申请过程中会进行信用查询，可能产生短期影响。但在新西兰，30天内的多次信用查询只算一次。",
+        faq_3_ans: "这取决于您的贷款金额和利率差。,000贷款降低0.5-1%利率可每月节省-500。使用上方计算器获取个性化估算。",
+        faq_4_ans: "多数转贷在提交申请后2-3周内完成。整个过程主要在线完成，我们会协调银行和律师。",
+        faq_5_ans: "不需要首付。转贷使用您现有的房屋款项。通常您需要至少20%的款顷，但部分银行可接受更低比例。",
+        faq_6_ans: "银行会评估您的还款能力，通常以实际利率加上1.5-2%作为测试利率。每家银行标准不同，我们可以帮您匹配合适的银行。",
+        form_name: "姓名",
+        form_email: "电子邮件",
+        form_phone: "电话",
+        form_employment: "就业类型",
+        form_ft: "全职受雇",
+        contact_phone_label: "电话",
+        contact_email_label: "电子邮件",
 }
-    },
+    
+},
     t: function(key) {
       var lang = this.currentLang;
       if (this.translations[lang] && this.translations[lang][key] !== undefined) {
@@ -444,7 +478,7 @@
           break;
 
         case "qualification":
-          if (text.toLowerCase().includes("yes") || text.toLowerCase().includes("leave")) {
+          if (text.toLowerCase().includes("yes") || text.toLowerCase().includes("leave") || text.includes("\u597d\u7684") || text.includes("\u7559\u4e0b")) {
             next = "ask_name";
           } else {
             next = null;
