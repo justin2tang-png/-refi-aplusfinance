@@ -33,7 +33,17 @@
         contact_btn: "Get My Free Check",
         footer_text: "All rights reserved.",
         footer_disclaimer: "The information on this website is general in nature and does not constitute financial advice."
-      },
+      ,
+      pain_1_title: "Interest Rates Keep Rising",
+      pain_2_title: "Friends Are Paying Less",
+      pain_3_title: "Money Could Be Used Better",
+      sol_1_title: "Lower Interest Rate",
+      sol_2_title: "Cashback Offers",
+      sol_3_title: "Flexible Repayment Structure",
+      step1_title: "Quick Online Chat",
+      step2_title: "Compare Options",
+      step3_title: "Savings Hit Your Account"
+},
       zh: {
         lang_label: "\u4e2d\u6587",
         nav_why: "\u4e3a\u4f55\u8f6c\u8d37",
@@ -55,7 +65,17 @@
         contact_btn: "\u83b7\u53d6\u514d\u8d39\u8bc4\u4f30",
         footer_text: "\u4fdd\u7559\u6240\u6709\u6743\u5229\u3002",
         footer_disclaimer: "\u514d\u8d23\u58f0\u660e\uff1a\u672c\u7f51\u7ad9\u4fe1\u606f\u4e3a\u4e00\u822c\u6027\u4fe1\u606f\uff0c\u4e0d\u6784\u6210\u8d22\u52a1\u5efa\u8bae\u3002"
-      }
+      ,
+      pain_1_title: "利率持续上涨",
+      pain_2_title: "朋友付的更少",
+      pain_3_title: "钱本可以有更好的用途",
+      sol_1_title: "更低的利率",
+      sol_2_title: "现金回馈",
+      sol_3_title: "灵活的还款结构",
+      step1_title: "在线快速咨询",
+      step2_title: "比较方案",
+      step3_title: "节省到账"
+}
     },
     t: function(key) {
       var lang = this.currentLang;
