@@ -1,53 +1,18 @@
-﻿// ============================================
-// A Plus Finance - Refinance Landing Page JS
-// assets/js/app.js
-// ============================================
+import re, os
 
-(function() {
-  "use strict";
+path = r'C:\Users\PC\Documents\网页市场优化\assets\js\app.js'
+with open(path, 'r', encoding='utf-8') as f:
+    js = f.read()
 
-  // ---- Refinance Calculator ----
-  function initCalculator() {
-    const form = document.getElementById("calc-form");
-    if (!form) return;
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const balance = parseFloat(document.getElementById("calc-balance").value);
-      const currentRate = parseFloat(document.getElementById("calc-current-rate").value);
-      const newRate = parseFloat(document.getElementById("calc-new-rate").value);
-      const term = parseInt(document.getElementById("calc-term").value) || 30;
-      if (!balance || !currentRate || !newRate) {
-        document.getElementById("calc-result").innerHTML = "<p style=\"color:#ef4444;\">Please fill in all fields.</p>";
-        return;
-      }
-      const r1 = currentRate / 100 / 12;
-      const r2 = newRate / 100 / 12;
-      const n = term * 12;
-      const monthlyCurrent = r1 * balance / (1 - Math.pow(1 + r1, -n));
-      const monthlyNew = r2 * balance / (1 - Math.pow(1 + r2, -n));
-      const monthlySavings = monthlyCurrent - monthlyNew;
-      const yearlySavings = monthlySavings * 12;
-      document.getElementById("calc-result").innerHTML =
-        "<div class=\"calc-result\"><p>Estimated Monthly Savings</p><div class=\"savings\">$" +
-        monthlySavings.toFixed(0) + "</div><p>That&#8217;s <strong>$" + yearlySavings.toFixed(0) +
-        "</strong> per year!</p><p style=\"font-size:0.85rem;margin-top:0.5rem;color:var(--gray-500);\">Based on a " +
-        term + "-year term. Actual savings may vary.</p></div>";
-    });
-  }
+start = js.find('function initChat()')
+end = js.find('  // ---- Smooth Scroll ----')
 
-  // ---- FAQ Accordion ----
-  function initFAQ() {
-    document.querySelectorAll(".faq-question").forEach(function(q) {
-      q.addEventListener("click", function() {
-        this.parentElement.classList.toggle("active");
-      });
-    });
-  }
+print(f'initChat at {start}, smoothScroll at {end}')
+if start < 0 or end <= start:
+    print('ERROR: could not find boundaries')
+    exit(1)
 
-  // ============================================================
-  // Enhanced AI Chat — Guided Flow + Voice Input
-  // ============================================================
-      function initChat() {
+new_chat = """  function initChat() {
     const toggle = document.getElementById("chat-toggle");
     const box = document.getElementById("chat-box");
     const messages = document.getElementById("chat-messages");
@@ -105,20 +70,20 @@
       recognition.onresult = function(e) {
         var transcript = e.results[0][0].transcript;
         input.value = transcript;
-        voiceBtn.textContent = "🎤";
+        voiceBtn.textContent = "\U0001f3a4";
         voiceBtn.classList.remove("listening");
         isListening = false;
         sendMessage();
       };
 
       recognition.onerror = function() {
-        voiceBtn.textContent = "🎤";
+        voiceBtn.textContent = "\U0001f3a4";
         voiceBtn.classList.remove("listening");
         isListening = false;
       };
 
       recognition.onend = function() {
-        voiceBtn.textContent = "🎤";
+        voiceBtn.textContent = "\U0001f3a4";
         voiceBtn.classList.remove("listening");
         isListening = false;
       };
@@ -131,18 +96,18 @@
       }
       if (isListening) {
         recognition.stop();
-        voiceBtn.textContent = "🎤";
+        voiceBtn.textContent = "\U0001f3a4";
         voiceBtn.classList.remove("listening");
         isListening = false;
         return;
       }
       try {
         recognition.start();
-        voiceBtn.textContent = "🔴";
+        voiceBtn.textContent = "\U0001f534";
         voiceBtn.classList.add("listening");
         isListening = true;
       } catch (err) {
-        voiceBtn.textContent = "🎤";
+        voiceBtn.textContent = "\U0001f3a4";
         voiceBtn.classList.remove("listening");
         isListening = false;
       }
@@ -158,7 +123,7 @@
 
     function rangeMidpoint(str) {
       if (!str) return 0;
-      var nums = str.replace(/[^0-9\-]/g,'').split('-');
+      var nums = str.replace(/[^0-9\\-]/g,'').split('-');
       if (nums.length < 2) {
         var n = parseFloat(nums[0]);
         return isNaN(n) ? 0 : n;
@@ -171,7 +136,7 @@
 
     var flow = {
       welcome: {
-        msg: "Hi, I'm the Refinance Assistant.\n\nI'll ask a few quick questions to see whether refinancing may be worth exploring.\n\nThis is not financial advice. Any recommendations will be provided by a licensed mortgage broker after reviewing your situation.\n\nThe process takes approximately 2 minutes.",
+        msg: "Hi, I'm the Refinance Assistant.\\n\\nI'll ask a few quick questions to see whether refinancing may be worth exploring.\\n\\nThis is not financial advice. Any recommendations will be provided by a licensed mortgage broker after reviewing your situation.\\n\\nThe process takes approximately 2 minutes.",
         quick: ["Let's start", "Not right now"]
       },
       ask_bank: {
@@ -206,24 +171,24 @@
           var balStr = balance > 0 ? "$" + Number(balance).toLocaleString() : "Your loan amount";
           var propStr = prop > 0 ? "$" + Number(prop).toLocaleString() : "Your property";
 
-          return "Refinancing Opportunity Summary\n\n" +
-            "Current Bank: " + (d.bank || "N/A") + "\n" +
-            "Mortgage Balance: " + balStr + "\n" +
-            "Current Rate: " + (d.rate || "N/A") + "\n" +
-            "Property Value: " + propStr + "\n" +
-            "Goal: " + (d.goal || "N/A") + "\n" +
-            "Income: " + (d.income || "N/A") + "\n\n" +
-            "---\n\n" +
-            "Great news.\n\n" +
-            "Based on the information you provided, refinancing may be worth exploring.\n\n" +
-            "For a mortgage balance of " + balStr + ", some lenders may currently offer cashback incentives of up to:\n\n" +
-            "Approximately $" + Number(cashback).toLocaleString() + "\n\n" +
-            "subject to lender policy, eligibility criteria, loan structure, and approval requirements.\n\n" +
-            "In addition to potential cashback, a broker may also be able to review:\n" +
-            "  \u2022 Interest rate savings\n" +
-            "  \u2022 Repayment reductions\n" +
-            "  \u2022 Loan structure improvements\n" +
-            "  \u2022 Debt consolidation opportunities\n\n" +
+          return "Refinancing Opportunity Summary\\n\\n" +
+            "Current Bank: " + (d.bank || "N/A") + "\\n" +
+            "Mortgage Balance: " + balStr + "\\n" +
+            "Current Rate: " + (d.rate || "N/A") + "\\n" +
+            "Property Value: " + propStr + "\\n" +
+            "Goal: " + (d.goal || "N/A") + "\\n" +
+            "Income: " + (d.income || "N/A") + "\\n\\n" +
+            "---\\n\\n" +
+            "Great news.\\n\\n" +
+            "Based on the information you provided, refinancing may be worth exploring.\\n\\n" +
+            "For a mortgage balance of " + balStr + ", some lenders may currently offer cashback incentives of up to:\\n\\n" +
+            "Approximately $" + Number(cashback).toLocaleString() + "\\n\\n" +
+            "subject to lender policy, eligibility criteria, loan structure, and approval requirements.\\n\\n" +
+            "In addition to potential cashback, a broker may also be able to review:\\n" +
+            "  \\u2022 Interest rate savings\\n" +
+            "  \\u2022 Repayment reductions\\n" +
+            "  \\u2022 Loan structure improvements\\n" +
+            "  \\u2022 Debt consolidation opportunities\\n\\n" +
             "Would you like a licensed mortgage broker to review your situation?";
         },
         quick: ["Yes, leave my details", "No thanks"]
@@ -247,8 +212,8 @@
       done: {
         msg: function(d) {
           var cb = estimateCashback(d.balance);
-          return "Thank you " + d.name + "! Your details have been submitted.\n\n" +
-            "A licensed mortgage broker will contact you within 24 hours.\n\n" +
+          return "Thank you " + d.name + "! Your details have been submitted.\\n\\n" +
+            "A licensed mortgage broker will contact you within 24 hours.\\n\\n" +
             "Reference: Refinance Lead (Potential cashback up to $" + Number(cb).toLocaleString() + ")";
         },
         quick: null
@@ -337,7 +302,7 @@
           break;
 
         case "ask_name":
-          state.data.name = text.replace(/^(my name is|i'?m|it'?s|name:?)\s*/i, "").trim() || text.trim();
+          state.data.name = text.replace(/^(my name is|i'?m|it'?s|name:?)\\s*/i, "").trim() || text.trim();
           next = "ask_phone";
           break;
 
@@ -379,19 +344,19 @@
       var balance = data.balance > 0 ? data.balance : rangeMidpoint(data.balance_raw || "");
       var prop = data.property > 0 ? data.property : rangeMidpoint(data.property_raw || "");
 
-      var crm = "Lead Type: Refinance\n" +
-        "Current Bank: " + data.bank + "\n" +
-        "Mortgage Balance: " + balance + "\n" +
-        "Property Value: " + prop + "\n" +
-        "Current Rate: " + data.rate + "\n" +
-        "Goal: " + data.goal + "\n" +
-        "Income: " + data.income + "\n" +
-        "Potential Cashback: " + cb + "\n" +
-        "Broker Review: Recommended\n" +
-        "Lead Status: New Refinance Lead\n\n" +
-        "Client: " + data.name + "\n" +
-        "Phone: " + data.phone + "\n" +
-        "Email: " + data.email + "\n" +
+      var crm = "Lead Type: Refinance\\n" +
+        "Current Bank: " + data.bank + "\\n" +
+        "Mortgage Balance: " + balance + "\\n" +
+        "Property Value: " + prop + "\\n" +
+        "Current Rate: " + data.rate + "\\n" +
+        "Goal: " + data.goal + "\\n" +
+        "Income: " + data.income + "\\n" +
+        "Potential Cashback: " + cb + "\\n" +
+        "Broker Review: Recommended\\n" +
+        "Lead Status: New Refinance Lead\\n\\n" +
+        "Client: " + data.name + "\\n" +
+        "Phone: " + data.phone + "\\n" +
+        "Email: " + data.email + "\\n" +
         "Preferred Time: " + data.contactTime;
 
       if (document.getElementById("name")) document.getElementById("name").value = data.name;
@@ -435,49 +400,19 @@
       origGoToStep(stepName);
     };
   }
-  // ---- Smooth Scroll ----
-  function initSmoothScroll() {
-    document.querySelectorAll("a[href^=\"#\"]").forEach(function(anchor) {
-      anchor.addEventListener("click", function(e) {
-        e.preventDefault();
-        var target = document.querySelector(this.getAttribute("href"));
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-  }
+"""
 
-  // ---- Form Submission Handler ----
-  function initForm() {
-    var form = document.getElementById("contact-form");
-    if (!form) return;
+js = js[:start] + new_chat + js[end:]
 
-    // Allow Formspree to handle it, but show confirmation
-    form.addEventListener("submit", function(e) {
-      var btn = form.querySelector(".btn");
-      if (btn) {
-        btn.textContent = "Sending...";
-        btn.disabled = true;
-      }
-      // Formspree handles the redirect, but let's add a fallback
-      setTimeout(function() {
-        if (btn) {
-          btn.textContent = "Get My Free Check";
-          btn.disabled = false;
-        }
-      }, 10000);
-    });
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(js)
 
-    // Auto-fill from URL params if coming from chat
-    var params = new URLSearchParams(window.location.search);
-    if (params.get("name")) document.getElementById("name").value = params.get("name");
-  }
-
-  // ---- Init ----
-  document.addEventListener("DOMContentLoaded", function() {
-    initCalculator();
-    initFAQ();
-    initChat();
-    initSmoothScroll();
-    initForm();
-  });
-})();
+# Verify
+opens = js.count('{')
+closes = js.count('}')
+opens_p = js.count('(')
+closes_p = js.count(')')
+print(f'Braces: {opens}/{closes} (diff {opens-closes})')
+print(f'Parens: {opens_p}/{closes_p} (diff {opens_p-closes_p})')
+print(f'Size: {len(js)} chars')
+print('DONE')
