@@ -346,7 +346,7 @@
             "Great news.\n\n" +
             "Based on the information you provided, refinancing may be worth exploring.\n\n" +
             "For a mortgage balance of " + balStr + ", some lenders may currently offer cashback incentives of up to:\n\n" +
-            "Approximately $" + Number(cashback).toLocaleString() + "\n\n" +
+            "Approximately <span style=\"font-size:1.6em;font-weight:800;color:#059669;\">$" + Number(cashback).toLocaleString() + "</span>\n\n" +
             "subject to lender policy, eligibility criteria, loan structure, and approval requirements.\n\n" +
             "In addition to potential cashback, a broker may also be able to review:\n" +
             "  \u2022 Interest rate savings\n" +
