@@ -1,0 +1,99 @@
+﻿# Marketing Agent — Weekly Content Workflow
+# Runs every Monday at 9:00 AM NZT
+name: Marketing Agent
+
+on:
+  schedule:
+    - cron: "0 21 * * 0"  # Sunday 21:00 UTC = Monday 9:00 AM NZT
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Weekly LinkedIn Post
+        id: linkedin
+        run: |
+          cat > generated/linkedin-post-${{ github.run_id }}.md << 'EOF'
+          # LinkedIn Post — Week of $(date +"%Y-%m-%d")
+
+          [AI-generated draft — review before posting]
+
+          **Headline:**
+          Is your mortgage rate keeping you up at night? You're not alone.
+
+          **Body:**
+          I've been helping homeowners review their mortgages for over 14 years, and one thing hasn't changed: most people are paying more than they need to.
+
+          Here's what a typical refinance looks like in 2026:
+          ✅ Loan: $500,000
+          ✅ Current rate: 6.89%
+          ✅ New rate: 5.99%
+          ✅ Monthly saving: ~$280
+          ✅ Yearly saving: ~$3,360
+          ✅ Plus cashback: $3,000
+
+          Total first-year benefit: over $6,300.
+
+          If you haven't reviewed your home loan in the last 12 months, send me a DM or visit refi.aplusfinance.co.nz for a free check.
+
+          #RefinanceNZ #MortgageBroker #AucklandFinance #HomeLoans
+          EOF
+          echo "content_generated=true" >> $GITHUB_OUTPUT
+
+      - name: Generate Blog Draft
+        run: |
+          cat > generated/blog-refinance-2026-${{ github.run_id }}.md << 'EOF'
+          # Refinance 2026: 3 Signs It's Time to Switch Your Home Loan
+
+          [AI-generated draft — review and format before publishing]
+
+          ## Sign 1: You haven't reviewed your rate in 12+ months
+          Banks don't automatically pass on their best rates to existing customers...
+
+          ## Sign 2: Your financial situation has changed
+          Got a pay rise? Started a business? Your loan structure should reflect your current life...
+
+          ## Sign 3: You want cash, not just savings
+          Many banks offer $2,000-$4,000 cashback to refinance...
+
+          [Full draft expansion needed — this is a starter template]
+          EOF
+
+      - name: Generate Email Newsletter
+        run: |
+          cat > generated/email-newsletter-${{ github.run_id }}.md << 'EOF'
+          # Email to Existing Contacts
+
+          **Subject:** Quick check — are you on the best mortgage rate?
+
+          Hi [Name],
+
+          I'm reaching out because mortgage rates have shifted quite a bit this year, and I want to make sure you're not paying more than you need to.
+
+          I've launched a free refinance savings tool at refi.aplusfinance.co.nz — it takes 30 seconds and gives you an instant estimate.
+
+          No obligation, no hard sell. Just making sure my clients are looked after.
+
+          Warm regards,
+          Becky
+          A Plus Finance
+          EOF
+
+      - name: Upload Generated Content
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-content-${{ github.run_id }}
+          path: generated/
+
+      - name: Summary
+        run: |
+          echo "✅ Marketing content generated for review:"
+          echo "  - LinkedIn post"
+          echo "  - Blog draft"
+          echo "  - Email newsletter"
+          echo ""
+          echo "➡️  Review and post manually from artifacts"

@@ -1,0 +1,109 @@
+﻿{
+  "name": "Marketing Agent — Lead Follow-up & Content",
+  "nodes": [
+    {
+      "name": "Webhook — Form Submission",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "parameters": {
+        "path": "refi-lead",
+        "options": {}
+      }
+    },
+    {
+      "name": "Send Auto-Reply Email",
+      "type": "n8n-nodes-base.sendEmail",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "credentials": {
+        "smtp": { "id": "1", "name": "SMTP" }
+      },
+      "parameters": {
+        "fromEmail": "becky@aplusfinance.co.nz",
+        "subject": "Thanks for reaching out — here's what happens next",
+        "text": "Hi {{$json[\"name\"]}},\n\nThanks for your enquiry about refinancing!\n\nHere's what happens next:\n1. I'll review your details and get back to you within 24 hours\n2. I'll compare rates from 10+ lenders\n3. We'll find the best option for you\n\nIn the meantime, feel free to use our refinance calculator: https://refi.aplusfinance.co.nz#calculator\n\nWarm regards,\nBecky\nA Plus Finance"
+      }
+    },
+    {
+      "name": "Add to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [450, 480],
+      "credentials": {
+        "googleSheets": { "id": "2", "name": "Google Sheets" }
+      },
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "Sheet1",
+        "options": {}
+      }
+    },
+    {
+      "name": "Set Follow-up Reminder",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [450, 660],
+      "parameters": {}
+    },
+    {
+      "name": "Schedule — Weekly Content Generator",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 800],
+      "parameters": {
+        "rule": {
+          "interval": [ { "field": "hours", "hoursInterval": 168 } ]
+        }
+      }
+    },
+    {
+      "name": "Generate LinkedIn Post",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 2,
+      "position": [450, 800],
+      "credentials": {
+        "openAi": { "id": "3", "name": "OpenAI" }
+      },
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            { "role": "system", "content": "You are a marketing assistant for A Plus Finance, a NZ mortgage broker. Write engaging LinkedIn posts about refinancing. Keep it professional, friendly, and focused on helping homeowners save money." },
+            { "role": "user", "content": "Write a LinkedIn post (200 words max) about the benefits of refinancing in 2026. Include a call to action to visit refi.aplusfinance.co.nz" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Notify Becky for Review",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [650, 800],
+      "parameters": {
+        "fromEmail": "noreply@aplusfinance.co.nz",
+        "toEmail": "becky@aplusfinance.co.nz",
+        "subject": "✨ Weekly LinkedIn Post Ready for Review",
+        "text": "Hi Becky,\n\nHere's your AI-generated LinkedIn post for this week:\n\n{{$json[\"output\"]}}\n\nPlease review and post on LinkedIn.\n\n— Your Marketing Agent"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook — Form Submission": {
+      "main": [[ { "node": "Send Auto-Reply Email", "type": "main", "index": 0 } ]]
+    },
+    "Send Auto-Reply Email": {
+      "main": [[ { "node": "Add to Google Sheets", "type": "main", "index": 0 } ]]
+    },
+    "Add to Google Sheets": {
+      "main": [[ { "node": "Set Follow-up Reminder", "type": "main", "index": 0 } ]]
+    },
+    "Schedule — Weekly Content Generator": {
+      "main": [[ { "node": "Generate LinkedIn Post", "type": "main", "index": 0 } ]]
+    },
+    "Generate LinkedIn Post": {
+      "main": [[ { "node": "Notify Becky for Review", "type": "main", "index": 0 } ]]
+    }
+  }
+}
