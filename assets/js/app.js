@@ -578,6 +578,9 @@
       if (document.getElementById("email")) document.getElementById("email").value = data.email;
       if (document.getElementById("loan-amount")) document.getElementById("loan-amount").value = balance;
       if (document.getElementById("property-value")) document.getElementById("property-value").value = prop;
+      if (document.getElementById("current-rate")) document.getElementById("current-rate").value = data.rate;
+      if (document.getElementById("best-time")) document.getElementById("best-time").value = data.contactTime;
+      if (document.getElementById("employment")) document.getElementById("employment").value = data.income;
 
       var chatData = document.getElementById("chat-data");
       if (chatData) chatData.value = crm;
