@@ -74,6 +74,22 @@
       sol_3_title: "灵活的还款结构",
       step1_title: "在线快速咨询",
       step2_title: "比较方案",
+      chat_bank: "您当前的房贷是哪家银行？",
+      chat_balance: "您的房贷大约还欠多少？（大概数字就行）",
+      chat_rate: "您知道当前的利率是多少吗？",
+      chat_goal: "您考虑转贷的主要原因是什么？（可以打字或语音）",
+      chat_income: "过去12个月您的收入有变化吗？",
+      chat_property: "您的房产大约值多少钱？",
+      chat_yes_leave: "好的，留下联系方式",
+      chat_no_thanks: "不了谢谢",
+      chat_name: "您的全名是？",
+      chat_phone: "您的手机号是？",
+      chat_email: "您的电子邮箱是？",
+      chat_contact_time: "您希望什么时间被联系？",
+      chat_morning: "上午",
+      chat_afternoon: "下午",
+      chat_evening: "晚上",
+      chat_bye: "没关系！想改变主意时随时回来
       step3_title: "节省到账"
 }
     },
