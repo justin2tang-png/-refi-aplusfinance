@@ -164,7 +164,7 @@
     function addMsg(text, isUser) {
       var div = document.createElement("div");
       div.className = "chat-msg" + (isUser ? " user" : "");
-      div.textContent = text;
+      div.innerHTML = text;
       messages.appendChild(div);
       messages.scrollTop = messages.scrollHeight;
     }
@@ -266,10 +266,7 @@
     }
 
     var flow = {
-      welcome: {
-        msg: i18n.currentLang === "zh" ? i18n.t("chat_welcome") : "Hi, I'm the Refinance Assistant.\n\nI'll ask a few quick questions to see whether refinancing may be worth exploring.\n\nThis is not financial advice. Any recommendations will be provided by a licensed mortgage broker after reviewing your situation.\n\nThe process takes approximately 2 minutes.",
-        quick: [i18n.currentLang === "zh" ? i18n.t("chat_start") : "Let's start", i18n.currentLang === "zh" ? i18n.t("chat_notnow") : "Not right now"]
-      },
+      
       ask_bank: {
         msg: i18n.currentLang === "zh" ? i18n.t("chat_bank") : "Which bank is your current mortgage with?",
         quick: ["ANZ", "ASB", "BNZ", "Westpac", "Kiwibank", "Other"]
@@ -378,17 +375,6 @@
       var next = null;
 
       switch (step) {
-        case "welcome":
-          if (text.toLowerCase().includes("let") || text.toLowerCase().includes("yes") || text.toLowerCase().includes("start")) {
-            next = "ask_bank";
-          } else {
-            next = null;
-            addMsg(i18n.currentLang === "zh" ? i18n.t("chat_bye") : "No worries! Feel free to come back anytime.", false);
-            state.waiting = false;
-            return;
-          }
-          break;
-
         case "ask_bank":
           state.data.bank = text.trim();
           next = "ask_balance";
@@ -453,7 +439,7 @@
           break;
 
         default:
-          next = "welcome";
+          next = "ask_bank";
       }
 
       if (next) {
@@ -513,7 +499,7 @@
     toggle.addEventListener("click", function() {
       box.classList.toggle("open");
       if (box.classList.contains("open") && state.step === null) {
-        setTimeout(function() { goToStep("welcome"); }, 300);
+        setTimeout(function() { goToStep("ask_bank"); }, 300);
       }
     });
 
