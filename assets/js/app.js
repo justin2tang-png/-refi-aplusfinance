@@ -6,6 +6,102 @@
 (function() {
   "use strict";
 
+  // ============================================================
+  // i18n - Multi-language support (EN / ZH)
+  // ============================================================
+  var i18n = {
+    currentLang: "en",
+    translations: {
+      en: {
+        lang_label: "English",
+        nav_why: "Why Refinance",
+        nav_about: "About Becky",
+        nav_calc: "Calculator",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        hero_title: 'Your Mortgage Costing Too Much? Let\u2019s Fix It.',
+        hero_cta: "Check Your Refinance Savings",
+        hero_cta2: "Free Consultation",
+        pain_title: "Does Any of This Sound Familiar?",
+        sol_title: "Refinancing Could Unlock These Benefits",
+        about_title: "Why Choose Becky?",
+        process_title: "How It Works",
+        calc_title: "How Much Could You Save?",
+        calc_btn: "Calculate Your Savings",
+        faq_title: "Frequently Asked Questions",
+        contact_title: "Ready to Save? Let\u2019s Talk.",
+        contact_btn: "Get My Free Check",
+        footer_text: "All rights reserved.",
+        footer_disclaimer: "The information on this website is general in nature and does not constitute financial advice."
+      },
+      zh: {
+        lang_label: "\u4e2d\u6587",
+        nav_why: "\u4e3a\u4f55\u8f6c\u8d37",
+        nav_about: "\u5173\u4e8eBecky",
+        nav_calc: "\u8282\u7701\u8ba1\u7b97\u5668",
+        nav_faq: "\u5e38\u89c1\u95ee\u9898",
+        nav_contact: "\u8054\u7cfb\u6211\u4eec",
+        hero_title: "\u60a8\u7684\u623f\u8d37\u6210\u672c\u592a\u9ad8\uff1f\u8ba9\u6211\u4eec\u6765\u89e3\u51b3\u3002",
+        hero_cta: "\u67e5\u770b\u60a8\u7684\u8f6c\u8d37\u8282\u7701",
+        hero_cta2: "\u514d\u8d39\u54a8\u8be2",
+        pain_title: "\u8fd9\u4e9b\u60c5\u51b5\u60a8\u718a\u6089\u5417\uff1f",
+        sol_title: "\u8f6c\u8d37\u53ef\u4ee5\u5e26\u6765\u8fd9\u4e9b\u597d\u5904",
+        about_title: "\u4e3a\u4ec0\u4e48\u9009\u62e9Becky\uff1f",
+        process_title: "\u64cd\u4f5c\u6d41\u7a0b",
+        calc_title: "\u60a8\u53ef\u4ee5\u8282\u7701\u591a\u5c11\uff1f",
+        calc_btn: "\u8ba1\u7b97\u60a8\u7684\u8282\u7701",
+        faq_title: "\u5e38\u89c1\u95ee\u9898",
+        contact_title: "\u51c6\u5907\u597d\u4e86\uff1f\u8ba9\u6211\u4eec\u804a\u804a\u3002",
+        contact_btn: "\u83b7\u53d6\u514d\u8d39\u8bc4\u4f30",
+        footer_text: "\u4fdd\u7559\u6240\u6709\u6743\u5229\u3002",
+        footer_disclaimer: "\u514d\u8d23\u58f0\u660e\uff1a\u672c\u7f51\u7ad9\u4fe1\u606f\u4e3a\u4e00\u822c\u6027\u4fe1\u606f\uff0c\u4e0d\u6784\u6210\u8d22\u52a1\u5efa\u8bae\u3002"
+      }
+    },
+    t: function(key) {
+      var lang = this.currentLang;
+      if (this.translations[lang] && this.translations[lang][key] !== undefined) {
+        return this.translations[lang][key];
+      }
+      if (this.translations.en && this.translations.en[key] !== undefined) {
+        return this.translations.en[key];
+      }
+      return key;
+    },
+    detectLanguage: function() {
+      var lang = navigator.language || navigator.userLanguage || "";
+      return lang.indexOf("zh") === 0 ? "zh" : "en";
+    },
+    applyToPage: function() {
+      var els = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < els.length; i++) {
+        var key = els[i].getAttribute("data-i18n");
+        var val = this.t(key);
+        if (val && val !== key) els[i].textContent = val;
+      }
+      var phs = document.querySelectorAll("[data-i18n-placeholder]");
+      for (var i = 0; i < phs.length; i++) {
+        var key = phs[i].getAttribute("data-i18n-placeholder");
+        var val = this.t(key);
+        if (val && val !== key) phs[i].placeholder = val;
+      }
+    },
+    init: function() {
+      var self = this;
+      var pref = localStorage.getItem("prefLang");
+      this.currentLang = pref === "zh" || pref === "en" ? pref : this.detectLanguage();
+      this.applyToPage();
+      var toggle = document.getElementById("lang-toggle");
+      if (toggle) {
+        toggle.textContent = this.currentLang === "zh" ? "English" : "\u4e2d\u6587";
+        toggle.addEventListener("click", function() {
+          self.currentLang = self.currentLang === "zh" ? "en" : "zh";
+          self.applyToPage();
+          toggle.textContent = self.currentLang === "zh" ? "English" : "\u4e2d\u6587";
+          localStorage.setItem("prefLang", self.currentLang);
+        });
+      }
+    }
+  };
   // ---- Refinance Calculator ----
   function initCalculator() {
     const form = document.getElementById("calc-form");
@@ -171,31 +267,31 @@
 
     var flow = {
       welcome: {
-        msg: "Hi, I'm the Refinance Assistant.\n\nI'll ask a few quick questions to see whether refinancing may be worth exploring.\n\nThis is not financial advice. Any recommendations will be provided by a licensed mortgage broker after reviewing your situation.\n\nThe process takes approximately 2 minutes.",
-        quick: ["Let's start", "Not right now"]
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_welcome") : "Hi, I'm the Refinance Assistant.\n\nI'll ask a few quick questions to see whether refinancing may be worth exploring.\n\nThis is not financial advice. Any recommendations will be provided by a licensed mortgage broker after reviewing your situation.\n\nThe process takes approximately 2 minutes.",
+        quick: [i18n.currentLang === "zh" ? i18n.t("chat_start") : "Let's start", i18n.currentLang === "zh" ? i18n.t("chat_notnow") : "Not right now"]
       },
       ask_bank: {
-        msg: "Which bank is your current mortgage with?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_bank") : "Which bank is your current mortgage with?",
         quick: ["ANZ", "ASB", "BNZ", "Westpac", "Kiwibank", "Other"]
       },
       ask_balance: {
-        msg: "Approximately how much do you still owe on your mortgage?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_balance") : "Approximately how much do you still owe on your mortgage?",
         quick: ["Under $300,000", "$300,000 - $500,000", "$500,000 - $800,000", "$800,000 - $1 million", "Over $1 million"]
       },
       ask_rate: {
-        msg: "Do you know your current interest rate?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_rate") : "Do you know your current interest rate?",
         quick: ["Under 5%", "5% - 6%", "6% - 7%", "Over 7%", "Not sure"]
       },
       ask_goal: {
-        msg: "What is the main reason you are considering refinancing? (You can type or use voice)",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_goal") : "What is the main reason you are considering refinancing? (You can type or use voice)",
         quick: ["Lower repayments", "Better rate", "Debt consolidation", "Renovation", "Access equity", "Just exploring"]
       },
       ask_income: {
-        msg: "Has your income changed over the last 12 months?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_income") : "Has your income changed over the last 12 months?",
         quick: ["Increased", "About the same", "Decreased"]
       },
       ask_property: {
-        msg: "Approximately what is your property worth today?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_property") : "Approximately what is your property worth today?",
         quick: ["Under $700,000", "$700,000 - $1 million", "$1 million - $1.5 million", "Over $1.5 million", "Not sure"]
       },
       qualification: {
@@ -226,23 +322,23 @@
             "  \u2022 Debt consolidation opportunities\n\n" +
             "Would you like a licensed mortgage broker to review your situation?";
         },
-        quick: ["Yes, leave my details", "No thanks"]
+        quick: [i18n.currentLang === "zh" ? i18n.t("chat_yes_leave") : "Yes, leave my details", i18n.currentLang === "zh" ? i18n.t("chat_no_thanks") : "No thanks"]
       },
       ask_name: {
-        msg: "Great! What is your full name?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_name") : "Great! What is your full name?",
         quick: null
       },
       ask_phone: {
-        msg: "What is your mobile number?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_phone") : "What is your mobile number?",
         quick: null
       },
       ask_email: {
-        msg: "What is your email address?",
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_email") : "What is your email address?",
         quick: null
       },
       ask_contact_time: {
-        msg: "What is your preferred contact time?",
-        quick: ["Morning", "Afternoon", "Evening"]
+        msg: i18n.currentLang === "zh" ? i18n.t("chat_contact_time") : "What is your preferred contact time?",
+        quick: [i18n.currentLang === "zh" ? i18n.t("chat_morning") : "Morning", i18n.currentLang === "zh" ? i18n.t("chat_afternoon") : "Afternoon", i18n.currentLang === "zh" ? i18n.t("chat_evening") : "Evening"]
       },
       done: {
         msg: function(d) {
@@ -287,7 +383,7 @@
             next = "ask_bank";
           } else {
             next = null;
-            addMsg("No worries! Feel free to come back anytime.", false);
+            addMsg(i18n.currentLang === "zh" ? i18n.t("chat_bye") : "No worries! Feel free to come back anytime.", false);
             state.waiting = false;
             return;
           }
@@ -330,7 +426,7 @@
             next = "ask_name";
           } else {
             next = null;
-            addMsg("Understood. If you change your mind, feel free to come back anytime.", false);
+            addMsg(i18n.currentLang === "zh" ? i18n.t("chat_bye") : "Understood. If you change your mind, feel free to come back anytime.", false);
             state.waiting = false;
             return;
           }
@@ -474,6 +570,7 @@
 
   // ---- Init ----
   document.addEventListener("DOMContentLoaded", function() {
+    i18n.init();
     initCalculator();
     initFAQ();
     initChat();
