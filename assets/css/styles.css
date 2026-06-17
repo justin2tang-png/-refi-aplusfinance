@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    A Plus Finance - Refinance Landing Page
    assets/css/styles.css
    ============================================ */
@@ -371,7 +371,7 @@ footer a { color: var(--accent); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.chat-msg.bot {
+.chat-msg {
   background: var(--white);
   color: var(--gray-700);
   border-bottom-left-radius: 4px;
