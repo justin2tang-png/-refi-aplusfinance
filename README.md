@@ -11,8 +11,8 @@ refi.aplusfinance.co.nz/
 ├── index.html              # Main landing page
 ├── assets/
 │   ├── css/styles.css      # All styles
-│   ├── js/app.js           # Calculator, chat, FAQ logic
-│   └── img/                # Images (Becky portrait, etc.)
+│   ├── js/app.js           # i18n, calculator, FAQ, form logic
+│   └── img/                # Becky portrait and page imagery
 ├── sitemap.xml
 ├── robots.txt
 ├── CNAME                   # Custom domain config
@@ -30,10 +30,10 @@ refi.aplusfinance.co.nz/
 3. Add `refi.aplusfinance.co.nz` CNAME record pointing to `YOURUSER.github.io` in your DNS
 
 ### 2. Before Going Live
-- [ ] Add Becky"s portrait to `assets/img/` (placeholder currently in page)
-- [ ] Replace `YOUR_FORM_ID` in `<form action="...">` with your Formspree ID
-- [ ] Enable GA4 and replace `G-XXXXXXXXXX` in the footer script
-- [ ] Check all links and phone numbers
+- [ ] Confirm GA4 measurement ID is the production one
+- [ ] Submit a live Formspree test and confirm inbox delivery
+- [ ] Decide whether to publish a direct phone number on-page or keep email-first contact
+- [ ] Replace template IDs inside `automations/n8n-marketing-agent.json`
 
 ### 3. Marketing Agent Setup
 
@@ -46,19 +46,21 @@ refi.aplusfinance.co.nz/
 - `automations/n8n-marketing-agent.json`
 - Automates: form → auto-reply email → Google Sheets → follow-up reminder
 - Also generates weekly LinkedIn post content
+- Still contains template values and a placeholder follow-up step
 - Requires: SMTP credentials, Google Sheets API, OpenAI API key
 
 ## Page Sections
 
-1. **Hero** — Headline + CTA + Becky portrait
-2. **Pain Points** — Why you need refinancing
-3. **Solution** — Benefits of refinancing
-4. **About Becky** — 14 years at ANZ → independent broker
-5. **3-Step Process** — How it works
-6. **Refinance Calculator** — Instant savings estimate
-7. **Testimonials** — Placeholder for client stories
-8. **FAQ** — Accordion with common questions
-9. **Contact Form** — Name, email, phone, loan amount
+1. **Hero** — English-first refinance positioning + CTA
+2. **Trust Strip** — Experience, lender breadth, response speed
+3. **Pain Points** — Refinance triggers for mainstream NZ homeowners
+4. **Solution** — Rate, cashback, and structure opportunities
+5. **About Becky** — Major-bank experience + independent advice
+6. **3-Step Process** — Low-pressure refinance review flow
+7. **Refinance Calculator** — Monthly repayment estimate
+8. **Trust Signals** — Why homeowners start with this page
+9. **FAQ** — Accordion with common refinance questions
+10. **Contact Form** — Formspree lead capture
 
 ## Marketing Channels (4-Week Plan)
 
@@ -72,9 +74,9 @@ refi.aplusfinance.co.nz/
 | SEO Blog | 1 article on refinance tips | Free |
 
 ## To Replace Later
-- [ ] Testimonials (real client stories)
+- [ ] Add real client testimonials or verified review quotes
 - [ ] Blog content for SEO
-- [ ] Advanced chatbot (AI-powered instead of rule-based)
+- [ ] Multi-page market matrix for other mortgage scenarios
 
 ---
 
