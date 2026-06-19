@@ -22,7 +22,7 @@
       "parameters": {
         "fromEmail": "becky@aplusfinance.co.nz",
         "subject": "Thanks for reaching out — here's what happens next",
-        "text": "Hi {{$json[\"name\"]}},\n\nThanks for your enquiry about refinancing!\n\nHere's what happens next:\n1. I'll review your details and get back to you within 24 hours\n2. I'll compare rates from 10+ lenders\n3. We'll find the best option for you\n\nIn the meantime, feel free to use our refinance calculator: https://refi.aplusfinance.co.nz#calculator\n\nWarm regards,\nBecky\nA Plus Finance"
+        "text": "Hi {{$json[\"name\"]}},\n\nThanks for your enquiry about refinancing!\n\nHere's what happens next:\n1. I'll review your details and get back to you within 24 hours\n2. I'll compare rates from 10+ lenders\n3. We'll find the best option for you\n\nIn the meantime, feel free to use our refinance calculator: https://justin2tang-png.github.io/-refi-aplusfinance/#calculator\n\nWarm regards,\nBecky\nA Plus Finance"
       }
     },
     {
@@ -71,7 +71,7 @@
         "messages": {
           "values": [
             { "role": "system", "content": "You are a marketing assistant for A Plus Finance, a NZ mortgage broker. Write engaging LinkedIn posts about refinancing. Keep it professional, friendly, and focused on helping homeowners save money." },
-            { "role": "user", "content": "Write a LinkedIn post (200 words max) about the benefits of refinancing in 2026. Include a call to action to visit refi.aplusfinance.co.nz" }
+            { "role": "user", "content": "Write a LinkedIn post (200 words max) about the benefits of refinancing in 2026. Include a call to action to visit https://justin2tang-png.github.io/-refi-aplusfinance/" }
           ]
         }
       }

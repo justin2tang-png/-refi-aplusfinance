@@ -1,13 +1,13 @@
 ﻿# A Plus Finance — Refinance Landing Page
 
-**URL:** `refi.aplusfinance.co.nz`  
+**URL:** `https://justin2tang-png.github.io/-refi-aplusfinance/`  
 **Hosting:** GitHub Pages  
 **Tech:** Vanilla HTML/CSS/JS (no framework)  
 
 ## Project Structure
 
 ```
-refi.aplusfinance.co.nz/
+-refi-aplusfinance/
 ├── index.html              # Main landing page
 ├── assets/
 │   ├── css/styles.css      # All styles
@@ -15,7 +15,6 @@ refi.aplusfinance.co.nz/
 │   └── img/                # Becky portrait and page imagery
 ├── sitemap.xml
 ├── robots.txt
-├── CNAME                   # Custom domain config
 ├── .github/workflows/
 │   └── marketing-agent.yml # Weekly content generation
 └── automations/
@@ -27,7 +26,7 @@ refi.aplusfinance.co.nz/
 ### 1. GitHub Pages Setup
 1. Push this repo to GitHub
 2. Go to Settings → Pages → Source: GitHub Actions or deploy from main branch
-3. Add `refi.aplusfinance.co.nz` CNAME record pointing to `YOURUSER.github.io` in your DNS
+3. Temporarily use the GitHub Pages URL above until the custom domain DNS is configured
 
 ### 2. Before Going Live
 - [ ] Confirm GA4 measurement ID is the production one
