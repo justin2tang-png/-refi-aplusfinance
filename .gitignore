@@ -1,0 +1,12 @@
+﻿.agents/
+.hermes/
+node_modules/
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+AGENT_USAGE_RULES.md
+PROJECT_STATUS.md
+MEETING_NOTES_FOR_BECKY.md
+codex-*.md
+*.bak
